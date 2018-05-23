@@ -1,0 +1,72 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/darkly/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<style>
+		#byNameSearch {
+			display: none;
+		}
+	</style>
+    <script type="text/javascript">
+            $(document).ready(function() {
+					$(".form-inline").submit(function() {
+		 				$.post('/submit', {name: $("input[name='name']").val()}).done(function(result) {
+							alert("hello")
+		 				});	
+	  				});
+            });
+    </script>
+</head>
+<body>
+<div class="jumbotron">
+	<h2 style="text-align: center;">Top 10 enteries in redis database</h2>
+	<table class="table">
+	 <thead class="thead-light">
+      		<tr>
+        			<th>Code</th>
+        			<th>Name</th>
+        			<th>Open</th>
+					<th>High</th>
+        			<th>Low</th>
+        			<th>Close</th>
+      		</tr>
+    	</thead>
+    	<tbody>
+		% for d in data:
+			<tr>
+				<td>${(d[b'code']).decode()}</td>
+				<td>${(d[b'name']).decode()}</td>
+				<td>${(d[b'open']).decode()}</td>
+				<td>${(d[b'high']).decode()}</td>
+				<td>${(d[b'low']).decode()}</td>
+				<td>${(d[b'close']).decode()}</td>
+			</tr>
+		% endfor
+          	</tbody>
+	</table>
+</div>
+
+<div class="jumbotron">
+	<form class="form-inline" method="post">
+      		<input class="form-control" type="text" placeholder="Search By Name" name='name'>
+      		<button class="btn btn-primary" type="submit">Search</button>
+    </form>
+	<table class="table" id="byNameSearch">
+	 <thead class="thead-light">
+      		<tr>
+        			<th>Code</th>
+        			<th>Name</th>
+        			<th>Open</th>
+					<th>High</th>
+        			<th>Low</th>
+        			<th>Close</th>
+      		</tr>
+    	</thead>
+    	<tbody>
+          	</tbody>
+	</table>	
+</div>
+</body>
+</html>
